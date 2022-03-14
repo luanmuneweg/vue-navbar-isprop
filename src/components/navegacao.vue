@@ -1,28 +1,22 @@
 <template>
   <div class="navegacao">
-    <button v-for="(_, comp) in comps" :key="comp" :class="['botao', {active: compExibido === comp}]" @click="compExibido = comp">
+    <button :value="comp" v-for="(_,comp) in comps" :key="comp.id" :class="['botao', {active: compExibido === comp}]" @click="$emit('update:compExibido', $event.target.value)">
       {{comp}}
     </button>
-
-    <component :is="comps[compExibido]"></component>
   </div>
 </template>
 
-<script setup>
-import Home from './shared/Home.vue'
-import Projetos from './shared/Projetos.vue'
-import Serviços from './shared/Servicos.vue'
-import Contato from './shared/Contato.vue'
-import { ref } from 'vue'
+<script>
+  export default {
+    props:{
+      comps: Object,
+      compExibido: String
+    },
 
-const compExibido = ref('Home')
-
-const comps = {
-  Home,
-  Projetos,
-  Serviços,
-  Contato
-}
+    emits:
+      ['update:compExibido']
+      
+  }
 </script>
 
 <style scoped>

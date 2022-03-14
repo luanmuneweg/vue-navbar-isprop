@@ -1,16 +1,39 @@
 <template>
-<navegacao></navegacao>
+  <div>
+    <navegacao :comps="comps" v-model:compExibido="compExibido">
+    </navegacao>
+    <component :is="comps[compExibido]"></component>
+  </div>
 </template>
 
 <script>
-import navegacao from './components/navegacao.vue'
+  import navegacao from './components/navegacao.vue'
+  import Home from './components/shared/Home.vue'
+  import Projetos from './components/shared/Projetos.vue'
+  import Serviços from './components/shared/Servicos.vue'
+  import Contato from './components/shared/Contato.vue'
 
-export default {
-  name: 'App',
-  components: {
-    navegacao: navegacao
+  export default {
+    name: 'App',
+    
+    components: {
+      navegacao: navegacao
+    },
+
+    data() {
+      return {
+        comps: {
+          Home,
+          Projetos,
+          Serviços,
+          Contato
+        }, 
+
+        compExibido: 'Home'
+      }
+    }
   }
-}
+
 </script>
 
 <style>
